@@ -189,6 +189,73 @@ const covers = {
       <circle cx="30" cy="110" r="7" fill={S} /><circle cx="370" cy="110" r="7" fill={S} />
     </g>
   ),
+  nutshell: () => {
+    const R = 62, C = 2 * Math.PI * R;
+    const due = [["A3", "in 2 days", A], ["Midterm", "in 5 days", S], ["Quiz", "Tomorrow", V]];
+    return (
+      <g>
+        <circle cx="105" cy="106" r={R} fill="none" stroke={M} strokeWidth="8" opacity="0.4" />
+        <circle cx="105" cy="106" r={R} fill="none" stroke={A} strokeWidth="8" strokeLinecap="round" strokeDasharray={`${C * 0.68} ${C}`} transform="rotate(-90 105 106)" className="cv-draw" />
+        <text x="105" y="114" textAnchor="middle" className="cv-big-sm" fill="var(--text)">17:00</text>
+        {[0, 1, 2, 3, 4].map((i) => (
+          <g key={i} className="cv-float" style={{ animationDelay: `${i * 0.3}s` }} transform={`translate(${62 + i * 22} 192)`}>
+            <ellipse cx="0" cy="3" rx="6" ry="7" fill={A} opacity="0.85" />
+            <rect x="-7" y="-6" width="14" height="5" rx="2" fill={S} opacity="0.85" />
+          </g>
+        ))}
+        {due.map(([t, d, c], i) => (
+          <g key={t} className="cv-flick" style={{ animationDelay: `${i * 0.4}s` }}>
+            <rect x="210" y={38 + i * 50} width="174" height="36" rx="8" fill="none" stroke={c} opacity="0.7" />
+            <text x="222" y={61 + i * 50} className="cv-txt" fill="var(--text)">{t}</text>
+            <text x="374" y={61 + i * 50} className="cv-txt" fill={c} textAnchor="end">{d}</text>
+          </g>
+        ))}
+      </g>
+    );
+  },
+  room: () => {
+    // isometric pixel bedroom: walls, window with moon, shelf, desk + lamp glow, fairy lights
+    const iso = (x, y, z) => [200 + (x - y) * 7.5, 70 + (x + y) * 3.6 - z * 1.9];
+    const pts = (...p) => p.map((q) => iso(...q).join(",")).join(" ");
+    const bulbs = ["#ffd27a", "#ff9ec0", "#9fd8ff", "#b9f2c4", "#e2b8ff"];
+    return (
+      <g>
+        <defs>
+          <radialGradient id="lampGlow"><stop offset="0" stopColor="#ffcf8a" stopOpacity="0.55" /><stop offset="1" stopColor="#ffcf8a" stopOpacity="0" /></radialGradient>
+        </defs>
+        <polygon points={pts([0, 0, 0], [0, 16, 0], [0, 16, 30], [0, 0, 30])} fill={V} opacity="0.32" />
+        <polygon points={pts([0, 0, 0], [16, 0, 0], [16, 0, 30], [0, 0, 30])} fill={V} opacity="0.22" />
+        <polygon points={pts([0, 0, 0], [16, 0, 0], [16, 16, 0], [0, 16, 0])} fill={A} opacity="0.22" />
+        <ellipse cx={iso(8, 10, 0)[0]} cy={iso(8, 10, 0)[1]} rx="38" ry="15" fill={V} opacity="0.35" />
+        <polygon points={pts([3, 0, 12], [9, 0, 12], [9, 0, 25], [3, 0, 25])} fill="#1f2350" stroke="var(--text)" strokeOpacity="0.5" />
+        <circle cx={iso(7.2, 0, 21)[0]} cy={iso(7.2, 0, 21)[1]} r="4" fill="#fff6d6" className="cv-flick" />
+        <polygon points={pts([0, 2.5, 0], [0, 8.5, 0], [0, 8.5, 21], [0, 2.5, 21])} fill={A} opacity="0.45" />
+        {[0, 1, 2, 3].map((s) => (
+          <g key={s}>{[0, 1, 2, 3, 4, 5].map((b) => {
+            const [x, y] = iso(0, 3 + b * 0.9, 2 + s * 5);
+            return <rect key={b} x={x - 3} y={y - 9} width="5" height="8" fill={bulbs[(s + b) % 5]} opacity="0.8" />;
+          })}</g>
+        ))}
+        <circle cx={iso(15, 1.5, 12)[0]} cy={iso(15, 1.5, 12)[1]} r="38" fill="url(#lampGlow)" className="cv-flick" />
+        <polygon points={pts([9.5, 0, 7], [15.5, 0, 7], [15.5, 4.5, 7], [9.5, 4.5, 7])} fill="var(--text)" opacity="0.55" />
+        <polygon points={pts([10.3, 1.2, 7.3], [13, 1.2, 7.3], [13, 1.2, 10.5], [10.3, 1.2, 10.5])} fill="#a8d8ff" />
+        <polygon points={pts([14, 1, 11], [15.4, 1, 11], [15.1, 1.6, 12.6], [14.3, 1.6, 12.6])} fill="#ffd6a5" />
+        <g className="cv-float">
+          <ellipse cx={iso(8, 10, 0)[0]} cy={iso(8, 10, 0)[1] - 6} rx="8" ry="6" fill="#fff3e6" />
+          <circle cx={iso(8, 10, 0)[0]} cy={iso(8, 10, 0)[1] - 15} r="5.5" fill="#fff3e6" />
+          <circle cx={iso(8, 10, 0)[0] + 3} cy={iso(8, 10, 0)[1] - 17} r="2" fill="#f7b27a" />
+        </g>
+        <path d={`M${iso(2.8, 12.6, 3).join(" ")} q-8 -14 -2 -24 M${iso(2.8, 12.6, 3).join(" ")} q2 -16 9 -20 M${iso(2.8, 12.6, 3).join(" ")} q-14 -6 -16 -14`} stroke="#7fcf8f" strokeWidth="2.5" fill="none" />
+        <polygon points={pts([2, 11.6, 0], [4, 11.6, 0], [4, 13.6, 0], [2, 13.6, 0])} fill="#e8a37c" />
+        {Array.from({ length: 14 }).map((_, i) => {
+          const left = i < 7, t = (i % 7 + 0.5) / 7;
+          const [x, y] = left ? iso(0, 16 - t * 16, 29) : iso(t * 16, 0, 29);
+          return <circle key={i} cx={x} cy={y + 3} r="2.2" fill={bulbs[i % 5]} className="cv-flick" style={{ animationDelay: `${i * 0.17}s` }} />;
+        })}
+        <text x="384" y="208" className="cv-txt" fill={M} textAnchor="end">fern = CPU · lamp = battery</text>
+      </g>
+    );
+  },
   slice: () => (
     <g>
       <path d="M40 180 Q200 -20 360 150" fill="none" stroke={S} strokeWidth="3" strokeLinecap="round" className="cv-draw" />

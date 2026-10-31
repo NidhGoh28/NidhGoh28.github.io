@@ -29,7 +29,7 @@ export const STATS = [
   { value: "511", label: "Kalshi market groups scanned for arbitrage" },
   { value: "0.80", label: "F1 after fine-tuning FinBERT (from 0.71)" },
   { value: "1,800", label: "portfolios mapped on the efficient frontier" },
-  { value: "13", label: "projects across quant, data, software & creative code" },
+  { value: "15", label: "projects across quant, data, software & creative code" },
 ];
 
 // category keys used by the filter tabs
@@ -163,6 +163,38 @@ export const PROJECTS = [
     repo: null,
     demo: null,
     cover: "ticker",
+  },
+  {
+    id: "tiny-room",
+    title: "Tiny Room",
+    category: "swe",
+    date: "Oct 2026",
+    tagline: "A pixel bedroom on my desktop where every object is a live readout of my Mac.",
+    points: [
+      "Custom isometric pixel engine on a 176×146 canvas: polygon fill with per-object hit IDs for hover outlines, plus day/night tinting, lamp glow and a sunbeam.",
+      "The window shows the real sky from a NOAA sunrise/sunset calculation; the fern droops with CPU load, books fill with disk usage, the lamp tracks battery and the cat sleeps when I'm idle.",
+      "Electron app with a sandboxed renderer behind a narrow preload bridge: no network access, and Downloads is read as file names and sizes only.",
+    ],
+    stack: ["Electron", "JavaScript", "Canvas Pixel Engine", "Node.js"],
+    repo: `${GH}/tiny-room`,
+    demo: null,
+    cover: "room",
+  },
+  {
+    id: "nutshell",
+    title: "Nutshell",
+    category: "swe",
+    date: "Oct 2026",
+    tagline: "A pixel-squirrel study buddy that times your focus and remembers every deadline.",
+    points: [
+      "Pomodoro timer pays out pine nuts per minute studied; feed Hazel the squirrel to level her up, unlock outfits and keep a daily streak alive.",
+      "Drop a syllabus (PDF, Word, text or screenshot) and every assignment, quiz and exam date is pulled out for review, then shown as a list or calendar.",
+      "Exports deadlines to .ics for Google / Apple / Outlook; state syncs across devices, with a mini mode for a small desktop window.",
+    ],
+    stack: ["JavaScript", "Canvas Pixel Art", "PDF.js", "Web Audio"],
+    repo: `${GH}/nutshell`,
+    demo: `${PAGES}/nutshell/`,
+    cover: "nutshell",
   },
   {
     id: "pacman",
